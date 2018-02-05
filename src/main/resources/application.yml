@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    # active: dev
+    active: produce
+  jpa:
+    hibernate:
+      ddl-auto: update #create update validate
+      show-sql: true
+
+

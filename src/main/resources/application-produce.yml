@@ -1,0 +1,13 @@
+server:
+   port: 8222
+   context-path: /constellation
+#http://localhost:8085/signin/hello
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/dbusers
+#    url: jdbc:mysql://127.0.0.1:3306/dbusers?useUnicode=true&amp;characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/dbsuperwifi_produce?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456xiaoyou
+    sql-script-encoding: utf-8
