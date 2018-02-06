@@ -7,7 +7,8 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/dbusers
 #    url: jdbc:mysql://127.0.0.1:3306/dbusers?useUnicode=true&amp;characterEncoding=utf-8
-    url: jdbc:mysql://127.0.0.1:3306/dbsuperwifi_produce?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/dbconstellation_produce?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: 123456xiaoyou
+   # password: 123456xiaoyou
+    password: 123456
     sql-script-encoding: utf-8

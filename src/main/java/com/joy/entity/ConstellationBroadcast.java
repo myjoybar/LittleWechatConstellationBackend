@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 
 @Entity
 public class ConstellationBroadcast extends BaseData {
+    private String constellationName;
+    private String constellationType;
+    private String broadcastMessage;
+
     private long publishTimestamp;
     private long startValidTimestamp;
     private long endValidTimestamp;
-    private String BroadcastMessage;
 
     public long getPublishTimestamp() {
         return publishTimestamp;
@@ -38,10 +41,26 @@ public class ConstellationBroadcast extends BaseData {
     }
 
     public String getBroadcastMessage() {
-        return BroadcastMessage;
+        return broadcastMessage;
     }
 
     public void setBroadcastMessage(String broadcastMessage) {
-        BroadcastMessage = broadcastMessage;
+        this.broadcastMessage = broadcastMessage;
+    }
+
+    public String getConstellationName() {
+        return constellationName;
+    }
+
+    public void setConstellationName(String constellationName) {
+        this.constellationName = constellationName;
+    }
+
+    public String getConstellationType() {
+        return constellationType;
+    }
+
+    public void setConstellationType(String constellationType) {
+        this.constellationType = constellationType;
     }
 }
