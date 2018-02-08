@@ -12,8 +12,6 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * Created by joybar on 20/12/16.
  */
-//http://www.jianshu.com/collection/7ac1a6814c56
-//http://www.jianshu.com/p/f2060a6d6e3b
 @Configuration
 public class CorsConfig {
     private CorsConfiguration buildConfig() {

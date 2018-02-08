@@ -8,6 +8,12 @@ public class ErrorResult<T extends Object> extends BaseResultInfo {
     public static final Integer ERROR_CODE = 0;
     public static final String ERROR_MSG = "";
 
+    public ErrorResult(Integer errorCode,String errorMsg) {
+        this.setCode(errorCode);
+        this.setMessage(ERROR_MSG);
+        this.setResponseTime(System.currentTimeMillis());
+    }
+
     public ErrorResult(T resultData) {
         this.setCode(ERROR_CODE);
         this.setMessage(ERROR_MSG);

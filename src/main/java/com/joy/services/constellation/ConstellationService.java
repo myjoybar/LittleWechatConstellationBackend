@@ -1,6 +1,7 @@
 package com.joy.services.constellation;
 
 import com.joy.entity.ConstellationBroadcast;
+import com.joy.result.data.BaseResultInfo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface ConstellationService {
     List<ConstellationBroadcast> findAllBroadcastsByConstellationType(Integer constellationType);
 
     Page<ConstellationBroadcast> findAllBroadcastsByConstellationType(Integer page, Integer size, final Integer constellationType, int sortDirection);
+
+    BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long startValidTimestamp, long endValidTimestamp);
+
 }

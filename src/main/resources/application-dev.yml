@@ -9,6 +9,6 @@ spring:
 #    url: jdbc:mysql://127.0.0.1:3306/dbusers?useUnicode=true&amp;characterEncoding=utf-8
     url: jdbc:mysql://127.0.0.1:3306/dbconstellation_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-   # password: 123456xiaoyou
-    password: 123456
+    password: 123456xiaoyou
+   #  password: 123456
     sql-script-encoding: utf-8

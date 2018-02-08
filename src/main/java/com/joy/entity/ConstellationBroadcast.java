@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Entity
 public class ConstellationBroadcast extends BaseData {
     private String constellationName;
-    private String constellationType;
+    private Integer constellationType;
     private String broadcastMessage;
 
     private long publishTimestamp;
@@ -56,11 +56,11 @@ public class ConstellationBroadcast extends BaseData {
         this.constellationName = constellationName;
     }
 
-    public String getConstellationType() {
+    public Integer getConstellationType() {
         return constellationType;
     }
 
-    public void setConstellationType(String constellationType) {
+    public void setConstellationType(Integer constellationType) {
         this.constellationType = constellationType;
     }
 }
