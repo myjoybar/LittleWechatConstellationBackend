@@ -47,7 +47,7 @@ public class ConstellationController {
         return constellationService.addConstellationBroadcast(constellationType,broadcastMessage,startValidTimestamp,endValidTimestamp);
     }
 
-  //  http://localhost:8222/constellation/findallbroadcast?page=0&size=5&constellationType=1&sortDirection=0
+  //  http://localhost:8222/constellation/findallbroadcast?pageNumber=0&pageSize=5&constellationType=1&sortDirection=0
     @RequestMapping(value = "/findallbroadcast", method = {RequestMethod.GET})
     public BaseResultInfo findAllBroadcastsByConstellationType(ModelMap modelMap,
                                          @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
