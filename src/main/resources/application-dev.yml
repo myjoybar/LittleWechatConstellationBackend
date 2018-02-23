@@ -2,10 +2,9 @@ server:
    port: 8221
    context-path: /constellation
    ssl:
-     key-store: classpath:constellation.keystore
-     key-store-password: constellation
+     key-store: classpath:214517237360829.pfx
+     key-store-password: 214517237360829
      keyStoreType: PKCS12
-     keyAlias: constellation
 #http://localhost:8085/signin/hello
 http:
  port: 8223
