@@ -63,7 +63,8 @@ public class ConstellationApplication {
 		//if connector.setSecure(true),the http use the http and https use the https;else if connector.setSecure(false),the http redirect to https;
 		connector.setSecure(false);
 		//redirectPort The redirect port number (non-SSL to SSL)
-		connector.setRedirectPort(8221);
+		//connector.setRedirectPort(8221);
+		connector.setRedirectPort(443);
 		return connector;
 	}
 
