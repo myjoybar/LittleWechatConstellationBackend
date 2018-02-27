@@ -27,7 +27,7 @@ public class ConstellationController {
     // http://localhost:8221/constellation/say
     @GetMapping(value = "/say")
     public BaseResultInfo say() {
-        return new SuccessResult( "hello");
+        return new SuccessResult("hello");
     }
 
     //http://localhost:8221/constellation/test
@@ -37,28 +37,28 @@ public class ConstellationController {
     }
 
 
-   //  http://localhost:8222/constellation/addConstellationBroadcast?constellationType=1&broadcastMessage=2018-01-22有人可能觉得你在做白日梦，脑袋云里雾里。你现在的某个梦想也许是白日梦吧，但并不代表你不能实现它。制定切实的计划，白日梦也能成真。今天就开始踏出第一步&startValidTimestamp=1518006481000&endValidTimestamp=1518006433000
+    //  http://localhost:8222/constellation/addConstellationBroadcast?constellationType=1&broadcastMessage=2018-01-22有人可能觉得你在做白日梦，脑袋云里雾里。你现在的某个梦想也许是白日梦吧，但并不代表你不能实现它。制定切实的计划，白日梦也能成真。今天就开始踏出第一步&startValidTimestamp=1518006481000&endValidTimestamp=1518006433000
     @PostMapping(value = "/addConstellationBroadcast", produces = "application/json; charset=utf-8")
     public BaseResultInfo articleConstellationBroadcast(@RequestParam("constellationType") Integer constellationType,
-                                     @RequestParam("startValidTimestamp") Long startValidTimestamp,
-                                     @RequestParam("endValidTimestamp") Long endValidTimestamp,
-                                     @RequestParam("broadcastMessage") String broadcastMessage) throws UnsupportedEncodingException {
+                                                        @RequestParam("startValidTimestamp") Long startValidTimestamp,
+                                                        @RequestParam("endValidTimestamp") Long endValidTimestamp,
+                                                        @RequestParam("broadcastMessage") String broadcastMessage) throws UnsupportedEncodingException {
 
-        return constellationService.addConstellationBroadcast(constellationType,broadcastMessage,startValidTimestamp,endValidTimestamp);
+        return constellationService.addConstellationBroadcast(constellationType, broadcastMessage, startValidTimestamp, endValidTimestamp);
     }
 
-  //  http://localhost:8222/constellation/findallbroadcast?pageNumber=0&pageSize=5&constellationType=1&sortDirection=0
+    //  http://localhost:8222/constellation/findallbroadcast?pageNumber=0&pageSize=5&constellationType=1&sortDirection=0
     @RequestMapping(value = "/findallbroadcast", method = {RequestMethod.GET})
     public BaseResultInfo findAllBroadcastsByConstellationType(ModelMap modelMap,
-                                         @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
-                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                         @RequestParam(value = "constellationType", defaultValue = "0") Integer constellationType,
-                                         @RequestParam(value = "sortDirection", defaultValue = "0") Integer sortDirection
+                                                               @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
+                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                               @RequestParam(value = "constellationType", defaultValue = "0") Integer constellationType,
+                                                               @RequestParam(value = "sortDirection", defaultValue = "0") Integer sortDirection
     ) {
 
         Page<ConstellationBroadcast> datas = constellationService.findAllBroadcastsByConstellationType(pageNumber, pageSize, constellationType, sortDirection);
         modelMap.addAttribute("datas", datas);
-        SuccessResult resultInfo = new SuccessResult( datas);
+        SuccessResult resultInfo = new SuccessResult(datas);
         return resultInfo;
     }
 

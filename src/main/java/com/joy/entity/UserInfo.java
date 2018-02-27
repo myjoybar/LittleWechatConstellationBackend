@@ -1,8 +1,11 @@
 package com.joy.entity;
 
+import javax.persistence.Entity;
+
 /**
  * Created by joybar on 2017/5/15.
  */
+@Entity
 public class UserInfo extends BaseData{
 
     private String userName;
@@ -20,6 +23,13 @@ public class UserInfo extends BaseData{
     private String currentCity;
     private String currentDetailAddress;
 
+    public UserInfo() {
+    }
+
+    public UserInfo(String nickName, String avatarUrl) {
+        this.nickName = nickName;
+        this.avatarUrl = avatarUrl;
+    }
 
     public String getUserName() {
         return userName;

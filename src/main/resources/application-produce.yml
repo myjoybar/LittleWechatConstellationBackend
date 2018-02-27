@@ -3,8 +3,8 @@ server:
    context-path: /constellation
 
    ssl:
-      key-store: classpath:214517237360829.pfx
-      key-store-password: 214517237360829
+      key-store: classpath:214520819200829.pfx
+      key-store-password: 214520819200829
       keyStoreType: PKCS12
 #http://localhost:8085/signin/hello
 http:
