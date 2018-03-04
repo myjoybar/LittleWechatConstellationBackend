@@ -41,8 +41,6 @@ public class ConstellationController {
      *
      * @param constellationType
      * @param publishTimestamp
-     * @param startValidTimestamp
-     * @param endValidTimestamp
      * @param broadcastMessage
      * @return
      * @throws UnsupportedEncodingException
@@ -51,11 +49,9 @@ public class ConstellationController {
     @PostMapping(value = "/addConstellationBroadcast", produces = "application/json; charset=utf-8")
     public BaseResultInfo articleConstellationBroadcast(@RequestParam("constellationType") Integer constellationType,
                                                         @RequestParam("publishTimestamp") Long publishTimestamp,
-                                                        @RequestParam("startValidTimestamp") Long startValidTimestamp,
-                                                        @RequestParam("endValidTimestamp") Long endValidTimestamp,
                                                         @RequestParam("broadcastMessage") String broadcastMessage) throws UnsupportedEncodingException {
 
-        return constellationService.addConstellationBroadcast(constellationType, broadcastMessage, publishTimestamp, startValidTimestamp, endValidTimestamp);
+        return constellationService.addConstellationBroadcast(constellationType, broadcastMessage, publishTimestamp);
     }
 
     /**
@@ -75,8 +71,6 @@ public class ConstellationController {
      * @param constellationType
      * @param broadcastMessage
      * @param publishTimestamp
-     * @param startValidTimestamp
-     * @param endValidTimestamp
      * @return
      */
     @PostMapping(value = "/updateBroadcast")
@@ -84,11 +78,10 @@ public class ConstellationController {
             @RequestParam("id") Long id,
             @RequestParam("constellationType") Integer constellationType,
             @RequestParam("broadcastMessage") String broadcastMessage,
-            @RequestParam("publishTimestamp") Long publishTimestamp,
-            @RequestParam("startValidTimestamp") Long startValidTimestamp,
-            @RequestParam("endValidTimestamp") Long endValidTimestamp){
+            @RequestParam("publishTimestamp") Long publishTimestamp){
 
-        return constellationService.updateConstellationBroadcast(id,constellationType,broadcastMessage,publishTimestamp,startValidTimestamp,endValidTimestamp);
+
+        return constellationService.updateConstellationBroadcast(id,constellationType,broadcastMessage,publishTimestamp);
 
     }
 

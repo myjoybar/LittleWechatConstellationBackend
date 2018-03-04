@@ -56,12 +56,10 @@ public class ConstellationServiceImpl implements ConstellationService {
      * @param constellationType
      * @param broadcastMessage
      * @param publishTimestamp
-     * @param startValidTimestamp
-     * @param endValidTimestamp
      * @return
      */
     @Override
-    public BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long publishTimestamp, long startValidTimestamp, long endValidTimestamp) {
+    public BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long publishTimestamp) {
         BaseResultInfo baseResultInfo = null;
         if (constellationType < Constant.CONSTELLATION_Aries || constellationType > Constant.CONSTELLATION_Pisces) {
             ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_TYPE.getErrorCode(), ConstantError.ERROR_CONSTELLATION_TYPE.getErrorMsg());
@@ -73,7 +71,7 @@ public class ConstellationServiceImpl implements ConstellationService {
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
         }
-        if (String.valueOf(publishTimestamp).length() != 13 || String.valueOf(startValidTimestamp).length() != 13 || String.valueOf(endValidTimestamp).length() != 13) {
+        if (String.valueOf(publishTimestamp).length() != 13) {
             ErrorResult errorResult = new ErrorResult(ConstantError.TIME_STAMP_ERROR.getErrorCode(), ConstantError.TIME_STAMP_ERROR.getErrorMsg());
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
@@ -82,8 +80,6 @@ public class ConstellationServiceImpl implements ConstellationService {
         constellationBroadcast.setConstellationType(constellationType);
         constellationBroadcast.setConstellationName(Constant.CONSTELLATION_MAP.get(constellationType));
         constellationBroadcast.setBroadcastMessage(broadcastMessage);
-        constellationBroadcast.setStartValidTimestamp(startValidTimestamp);
-        constellationBroadcast.setEndValidTimestamp(endValidTimestamp);
         constellationBroadcast.setPublishTimestamp(publishTimestamp);
 
         ConstellationBroadcast constellationBroadcastResult = constellationRepository.save(constellationBroadcast);
@@ -120,12 +116,10 @@ public class ConstellationServiceImpl implements ConstellationService {
      * @param constellationType
      * @param broadcastMessage
      * @param publishTimestamp
-     * @param startValidTimestamp
-     * @param endValidTimestamp
      * @return
      */
     @Override
-    public BaseResultInfo updateConstellationBroadcast(Long id, Integer constellationType, String broadcastMessage, long publishTimestamp, long startValidTimestamp, long endValidTimestamp) {
+    public BaseResultInfo updateConstellationBroadcast(Long id, Integer constellationType, String broadcastMessage, long publishTimestamp) {
         BaseResultInfo baseResultInfo = null;
         SOUtils.print("constellationRepository.exists(id)" + constellationRepository.exists(id));
         if (constellationRepository.exists(id)) {
@@ -140,7 +134,7 @@ public class ConstellationServiceImpl implements ConstellationService {
                 baseResultInfo = new ErrorResult(errorResult);
                 return baseResultInfo;
             }
-            if (String.valueOf(publishTimestamp).length() != 13 || String.valueOf(startValidTimestamp).length() != 13 || String.valueOf(endValidTimestamp).length() != 13) {
+            if (String.valueOf(publishTimestamp).length() != 13) {
                 ErrorResult errorResult = new ErrorResult(ConstantError.TIME_STAMP_ERROR.getErrorCode(), ConstantError.TIME_STAMP_ERROR.getErrorMsg());
                 baseResultInfo = new ErrorResult(errorResult);
                 return baseResultInfo;
@@ -149,8 +143,6 @@ public class ConstellationServiceImpl implements ConstellationService {
             saveBroadcast.setConstellationType(constellationType);
             saveBroadcast.setBroadcastMessage(broadcastMessage);
             saveBroadcast.setPublishTimestamp(publishTimestamp);
-            saveBroadcast.setStartValidTimestamp(startValidTimestamp);
-            saveBroadcast.setEndValidTimestamp(endValidTimestamp);
             constellationRepository.save(saveBroadcast);
             return new SuccessResult(constellationRepository.save(saveBroadcast));
         }else{
