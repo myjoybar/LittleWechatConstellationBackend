@@ -1,27 +1,34 @@
 package com.joy.entity;
 
+import com.joy.entity.enumconfig.UserGenderConfig;
+import com.joy.entity.enumconfig.UserRoleConfig;
+
 import javax.persistence.Entity;
 
 /**
  * Created by joybar on 2017/5/15.
  */
 @Entity
-public class UserInfo extends BaseData{
+public class UserInfo extends BaseData {
 
-    private String userName;
-    private String password;
-    private int sex;
-    private int role;
-    private long birthDate;
+    private String userName = "";
+    private String password = "";
+    private int sex = UserGenderConfig.UNKNOWN.getGenderCode();
+    private int role = UserRoleConfig.commonUser.getRoleCode();
+    private long birthDate = 0;
 
-    private String nickName;
-    private String avatarUrl;
-    private String email;
-    private String mobilePhoneNumber;
-    private String homeTown;
+    private String nickName = "";
+    private String avatarUrl = "";
+    private String email = "";
+    private String mobilePhoneNumber = "";
+    ;
+    private String homeTown = "";
+    ;
 
-    private String currentCity;
-    private String currentDetailAddress;
+    private String currentCity = "";
+    ;
+    private String currentDetailAddress = "";
+    ;
 
     public UserInfo() {
     }

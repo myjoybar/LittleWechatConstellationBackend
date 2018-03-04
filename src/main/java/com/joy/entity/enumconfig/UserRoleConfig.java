@@ -5,7 +5,8 @@ package com.joy.entity.enumconfig;
  */
 public enum UserRoleConfig {
     Admin(1,"admin"),
-    commonUser(2,"commonUser");
+    commonUser(2,"commonUser"),
+    AllUser(3,"all");
 
     UserRoleConfig(int roleCode, String roleStr) {
         this.roleCode = roleCode;

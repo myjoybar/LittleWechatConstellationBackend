@@ -11,6 +11,8 @@ public enum ConstantError {
     ERROR_NICKNAME_BROADCAST_MSG_EMPTY(4,"nickName is empty"),
     ERROR_AVATAR_URL_BROADCAST_MSG_EMPTY(5,"avatarUrl is empty"),
     ERROR_USER_INFO_SAVE_OCCURS_ERROR(6,"user info save  occurs error"),
+    TIME_STAMP_ERROR(7,"Timestamp must be 13 digits"),
+    NO_CONSTELLATION_BROADCAST_IN_DB_ERROR(8,"constellation broadcast msg  is not in db"),
     ;
 
     ConstantError(int errorCode, String errorMsg) {

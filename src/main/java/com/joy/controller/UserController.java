@@ -1,14 +1,17 @@
 package com.joy.controller;
 
+import com.joy.entity.ConstellationBroadcast;
+import com.joy.entity.UserInfo;
+import com.joy.entity.enumconfig.UserGenderConfig;
+import com.joy.entity.enumconfig.UserRoleConfig;
 import com.joy.result.data.BaseResultInfo;
 import com.joy.result.data.SuccessResult;
 import com.joy.services.user.UserServiceImpl;
 import com.joy.utils.SOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 
@@ -37,5 +40,20 @@ public class UserController {
         SOUtils.print("addUser");
         return userService.addUser(nickName, avatarUrl);
     }
+
+    @RequestMapping(value = "/findAllAllUser", method = {RequestMethod.GET})
+    public BaseResultInfo findAllUserInfo(ModelMap modelMap,
+                                                               @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
+                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                               @RequestParam(value = "role", defaultValue = "3") Integer role,
+                                                               @RequestParam(value = "sortDirection", defaultValue = "0") Integer sortDirection
+    ) {
+
+        Page<UserInfo> datas = userService.findAllUserInfo(pageNumber, pageSize, role, sortDirection);
+        modelMap.addAttribute("datas", datas);
+        SuccessResult resultInfo = new SuccessResult(datas);
+        return resultInfo;
+    }
+
 
 }

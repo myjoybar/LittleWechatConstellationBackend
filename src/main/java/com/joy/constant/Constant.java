@@ -22,7 +22,7 @@ public class Constant {
     public final static int CONSTELLATION_Aquarius = 11;
     public final static int CONSTELLATION_Pisces = 12;
 
-    public static Map<Integer,String>CONSTELLATION_MAP = new HashMap<>();
+    public static Map<Integer,String>CONSTELLATION_MAP = new HashMap<Integer,String>();
 
     static {
        CONSTELLATION_MAP.put(CONSTELLATION_Aries,"Aries");

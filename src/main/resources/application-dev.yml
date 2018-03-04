@@ -11,7 +11,7 @@ server:
      ciphers: TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256"
 #http://localhost:8085/signin/hello
 http:
- port: 8221
+ port: 8223
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -20,5 +20,5 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dbconstellation_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456xiaoyou
-    #  password: 123456
+   # password: 123456
     sql-script-encoding: utf-8

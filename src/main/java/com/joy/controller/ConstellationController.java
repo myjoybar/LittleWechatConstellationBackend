@@ -36,17 +36,74 @@ public class ConstellationController {
         return constellationService.test();
     }
 
-
+    /**
+     * 添加
+     *
+     * @param constellationType
+     * @param publishTimestamp
+     * @param startValidTimestamp
+     * @param endValidTimestamp
+     * @param broadcastMessage
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     //  http://localhost:8222/constellation/addConstellationBroadcast?constellationType=1&broadcastMessage=2018-01-22有人可能觉得你在做白日梦，脑袋云里雾里。你现在的某个梦想也许是白日梦吧，但并不代表你不能实现它。制定切实的计划，白日梦也能成真。今天就开始踏出第一步&startValidTimestamp=1518006481000&endValidTimestamp=1518006433000
     @PostMapping(value = "/addConstellationBroadcast", produces = "application/json; charset=utf-8")
     public BaseResultInfo articleConstellationBroadcast(@RequestParam("constellationType") Integer constellationType,
+                                                        @RequestParam("publishTimestamp") Long publishTimestamp,
                                                         @RequestParam("startValidTimestamp") Long startValidTimestamp,
                                                         @RequestParam("endValidTimestamp") Long endValidTimestamp,
                                                         @RequestParam("broadcastMessage") String broadcastMessage) throws UnsupportedEncodingException {
 
-        return constellationService.addConstellationBroadcast(constellationType, broadcastMessage, startValidTimestamp, endValidTimestamp);
+        return constellationService.addConstellationBroadcast(constellationType, broadcastMessage, publishTimestamp, startValidTimestamp, endValidTimestamp);
     }
 
+    /**
+     * 根据ID删除
+     *
+     * @param id
+     */
+    //https://localhost:8221/constellation/deleteBroadcastById?id=2
+    @PostMapping(value = "/deleteBroadcastById")
+    public BaseResultInfo deleteBroadcastById(@RequestParam("id") Long id) {
+        return constellationService.deleteConstellationBroadcastById(id);
+    }
+
+    /**
+     * update
+     * @param id
+     * @param constellationType
+     * @param broadcastMessage
+     * @param publishTimestamp
+     * @param startValidTimestamp
+     * @param endValidTimestamp
+     * @return
+     */
+    @PostMapping(value = "/updateBroadcast")
+    public BaseResultInfo updateConstellationBroadcast(
+            @RequestParam("id") Long id,
+            @RequestParam("constellationType") Integer constellationType,
+            @RequestParam("broadcastMessage") String broadcastMessage,
+            @RequestParam("publishTimestamp") Long publishTimestamp,
+            @RequestParam("startValidTimestamp") Long startValidTimestamp,
+            @RequestParam("endValidTimestamp") Long endValidTimestamp){
+
+        return constellationService.updateConstellationBroadcast(id,constellationType,broadcastMessage,publishTimestamp,startValidTimestamp,endValidTimestamp);
+
+    }
+
+
+
+        /**
+         * 获取列表
+         *
+         * @param modelMap
+         * @param pageNumber
+         * @param pageSize
+         * @param constellationType
+         * @param sortDirection
+         * @return
+         */
     //  http://localhost:8222/constellation/findallbroadcast?pageNumber=0&pageSize=5&constellationType=1&sortDirection=0
     @RequestMapping(value = "/findallbroadcast", method = {RequestMethod.GET})
     public BaseResultInfo findAllBroadcastsByConstellationType(ModelMap modelMap,

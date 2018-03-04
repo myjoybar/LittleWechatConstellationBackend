@@ -17,6 +17,12 @@ public interface ConstellationService {
 
     Page<ConstellationBroadcast> findAllBroadcastsByConstellationType(Integer page, Integer size, final Integer constellationType, int sortDirection);
 
-    BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long startValidTimestamp, long endValidTimestamp);
+    BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage,long publishTimestamp,  long startValidTimestamp, long endValidTimestamp);
+
+    BaseResultInfo deleteConstellationBroadcastById(Long id);
+
+    BaseResultInfo updateConstellationBroadcast(Long id,Integer constellationType, String broadcastMessage,long publishTimestamp,  long startValidTimestamp, long endValidTimestamp);
+
+
 
 }

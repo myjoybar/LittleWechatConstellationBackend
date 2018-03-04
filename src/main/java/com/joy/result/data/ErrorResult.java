@@ -6,11 +6,11 @@ package com.joy.result.data;
 public class ErrorResult<T extends Object> extends BaseResultInfo {
 
     public static final Integer ERROR_CODE = 0;
-    public static final String ERROR_MSG = "";
+    public static final String ERROR_MSG = "error";
 
     public ErrorResult(Integer errorCode,String errorMsg) {
         this.setCode(errorCode);
-        this.setMessage(ERROR_MSG);
+        this.setMessage(errorMsg);
         this.setResponseTime(System.currentTimeMillis());
     }
 

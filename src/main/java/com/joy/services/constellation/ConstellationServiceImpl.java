@@ -7,6 +7,8 @@ import com.joy.result.ConstantError;
 import com.joy.result.data.BaseResultInfo;
 import com.joy.result.data.ErrorResult;
 import com.joy.result.data.SuccessResult;
+import com.joy.utils.NumberUtils;
+import com.joy.utils.SOUtils;
 import com.joy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,17 +51,30 @@ public class ConstellationServiceImpl implements ConstellationService {
     }
 
 
-
+    /**
+     * add
+     * @param constellationType
+     * @param broadcastMessage
+     * @param publishTimestamp
+     * @param startValidTimestamp
+     * @param endValidTimestamp
+     * @return
+     */
     @Override
-    public BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long startValidTimestamp, long endValidTimestamp) {
+    public BaseResultInfo addConstellationBroadcast(Integer constellationType, String broadcastMessage, long publishTimestamp, long startValidTimestamp, long endValidTimestamp) {
         BaseResultInfo baseResultInfo = null;
         if (constellationType < Constant.CONSTELLATION_Aries || constellationType > Constant.CONSTELLATION_Pisces) {
             ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_TYPE.getErrorCode(), ConstantError.ERROR_CONSTELLATION_TYPE.getErrorMsg());
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
         }
-        if(StringUtils.isEmpty(broadcastMessage)){
+        if (StringUtils.isEmpty(broadcastMessage)) {
             ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_EMPTY.getErrorCode(), ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_EMPTY.getErrorMsg());
+            baseResultInfo = new ErrorResult(errorResult);
+            return baseResultInfo;
+        }
+        if (String.valueOf(publishTimestamp).length() != 13 || String.valueOf(startValidTimestamp).length() != 13 || String.valueOf(endValidTimestamp).length() != 13) {
+            ErrorResult errorResult = new ErrorResult(ConstantError.TIME_STAMP_ERROR.getErrorCode(), ConstantError.TIME_STAMP_ERROR.getErrorMsg());
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
         }
@@ -69,21 +84,92 @@ public class ConstellationServiceImpl implements ConstellationService {
         constellationBroadcast.setBroadcastMessage(broadcastMessage);
         constellationBroadcast.setStartValidTimestamp(startValidTimestamp);
         constellationBroadcast.setEndValidTimestamp(endValidTimestamp);
-        constellationBroadcast.setPublishTimestamp(System.currentTimeMillis());
+        constellationBroadcast.setPublishTimestamp(publishTimestamp);
+
         ConstellationBroadcast constellationBroadcastResult = constellationRepository.save(constellationBroadcast);
-        if(null==constellationBroadcastResult){
+        if (null == constellationBroadcastResult) {
             ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_SAVE_OCCURS_ERROR.getErrorCode(), ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_SAVE_OCCURS_ERROR.getErrorMsg());
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
-        }else{
+        } else {
             baseResultInfo = new SuccessResult(constellationBroadcastResult);
             return baseResultInfo;
         }
 
     }
 
+    /**
+     * delete
+     * @param id
+     * @return
+     */
+    @Override
+    public BaseResultInfo deleteConstellationBroadcastById(Long id) {
+        try {
+            constellationRepository.delete(id);
+            return new SuccessResult("delete success");
+        } catch (Exception e) {
+            SOUtils.print("deleteConstellationBroadcastById error:" + e.getMessage());
+        }
+        return new ErrorResult("delete fail");
+    }
+
+    /**
+     * update
+     * @param id
+     * @param constellationType
+     * @param broadcastMessage
+     * @param publishTimestamp
+     * @param startValidTimestamp
+     * @param endValidTimestamp
+     * @return
+     */
+    @Override
+    public BaseResultInfo updateConstellationBroadcast(Long id, Integer constellationType, String broadcastMessage, long publishTimestamp, long startValidTimestamp, long endValidTimestamp) {
+        BaseResultInfo baseResultInfo = null;
+        SOUtils.print("constellationRepository.exists(id)" + constellationRepository.exists(id));
+        if (constellationRepository.exists(id)) {
+            ConstellationBroadcast saveBroadcast = new ConstellationBroadcast();
+            if (constellationType < Constant.CONSTELLATION_Aries || constellationType > Constant.CONSTELLATION_Pisces) {
+                ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_TYPE.getErrorCode(), ConstantError.ERROR_CONSTELLATION_TYPE.getErrorMsg());
+                baseResultInfo = new ErrorResult(errorResult);
+                return baseResultInfo;
+            }
+            if (StringUtils.isEmpty(broadcastMessage)) {
+                ErrorResult errorResult = new ErrorResult(ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_EMPTY.getErrorCode(), ConstantError.ERROR_CONSTELLATION_BROADCAST_MSG_EMPTY.getErrorMsg());
+                baseResultInfo = new ErrorResult(errorResult);
+                return baseResultInfo;
+            }
+            if (String.valueOf(publishTimestamp).length() != 13 || String.valueOf(startValidTimestamp).length() != 13 || String.valueOf(endValidTimestamp).length() != 13) {
+                ErrorResult errorResult = new ErrorResult(ConstantError.TIME_STAMP_ERROR.getErrorCode(), ConstantError.TIME_STAMP_ERROR.getErrorMsg());
+                baseResultInfo = new ErrorResult(errorResult);
+                return baseResultInfo;
+            }
+            saveBroadcast.setId(id);
+            saveBroadcast.setConstellationType(constellationType);
+            saveBroadcast.setBroadcastMessage(broadcastMessage);
+            saveBroadcast.setPublishTimestamp(publishTimestamp);
+            saveBroadcast.setStartValidTimestamp(startValidTimestamp);
+            saveBroadcast.setEndValidTimestamp(endValidTimestamp);
+            constellationRepository.save(saveBroadcast);
+            return new SuccessResult(constellationRepository.save(saveBroadcast));
+        }else{
+            ErrorResult errorResult = new ErrorResult(ConstantError.NO_CONSTELLATION_BROADCAST_IN_DB_ERROR.getErrorCode(), ConstantError.NO_CONSTELLATION_BROADCAST_IN_DB_ERROR.getErrorMsg());
+            baseResultInfo = new ErrorResult(errorResult);
+            return baseResultInfo;
+        }
+
+    }
 
 
+    /**
+     * 获取列表
+     * @param pageNumber
+     * @param pageSize
+     * @param constellationType
+     * @param sortDirection
+     * @return
+     */
     @Override
     public Page<ConstellationBroadcast> findAllBroadcastsByConstellationType(Integer pageNumber, Integer pageSize, final Integer constellationType, int sortDirection) {
 
@@ -104,8 +190,6 @@ public class ConstellationServiceImpl implements ConstellationService {
         }, pageable);
         return bookPage;
     }
-
-
 
 
 }
