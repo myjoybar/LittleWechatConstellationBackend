@@ -167,9 +167,11 @@ public class ConstellationServiceImpl implements ConstellationService {
 
         Pageable pageable = null;
         if (sortDirection == Constant.ARTICLE_SORT_DIRECTION_DESC) {
-            pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "id");
+           // pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "id");
+            pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "publishTimestamp");
         } else {
-            pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "id");
+           // pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "id");
+            pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "publishTimestamp");
         }
         Page<ConstellationBroadcast> bookPage = constellationRepository.findAll(new Specification<ConstellationBroadcast>() {
             @Override
