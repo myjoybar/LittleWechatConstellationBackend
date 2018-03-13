@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by joybar on 2018/2/6.
+ * API:https://localhost:8221/constellation/swagger-ui.html
  */
 @RestController
 public class ConstellationController {
