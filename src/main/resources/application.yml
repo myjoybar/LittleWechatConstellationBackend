@@ -2,6 +2,7 @@ spring:
   profiles:
     active: dev
     # active: produce
+    # active: produce
   jpa:
     hibernate:
       ddl-auto: update #create update validate

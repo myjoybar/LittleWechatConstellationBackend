@@ -2,8 +2,7 @@ package com.joy.services.user;
 
 import com.joy.constant.Constant;
 import com.joy.dao.constellation.UserRepository;
-import com.joy.entity.ConstellationBroadcast;
-import com.joy.entity.UserInfo;
+import com.joy.entity.UserInformation;
 import com.joy.entity.enumconfig.UserRoleConfig;
 import com.joy.result.ConstantError;
 import com.joy.result.data.BaseResultInfo;
@@ -50,11 +49,13 @@ public class UserServiceImpl implements UserService {
             baseResultInfo = new ErrorResult(errorResult);
             return baseResultInfo;
         }
-        List<UserInfo> listUser = this.findUserInfoByNickNameAndAvatarUrl(nickName, avatarUrl);
+        List<UserInformation> listUser = this.findUserInfoByNickNameAndAvatarUrl(nickName, avatarUrl);
         if (null == listUser || listUser.size() == 0) {
             SOUtils.print("this user has not been saved");
-            UserInfo user = new UserInfo(nickName, avatarUrl);
-            UserInfo userResult = userRepository.save(user);
+            UserInformation user = new UserInformation(nickName, avatarUrl);
+            user.setLastVisitTimestamp(System.currentTimeMillis());
+            user.setVisitTimes(1);
+            UserInformation userResult = userRepository.save(user);
             if (null == userResult) {
                 errorResult = new ErrorResult(ConstantError.ERROR_USER_INFO_SAVE_OCCURS_ERROR.getErrorCode(), ConstantError.ERROR_USER_INFO_SAVE_OCCURS_ERROR.getErrorMsg());
                 baseResultInfo = new ErrorResult(errorResult);
@@ -65,32 +66,35 @@ public class UserServiceImpl implements UserService {
             }
         } else {
             SOUtils.print("this user has saved");
-            UserInfo userInfo = new UserInfo(nickName, avatarUrl);
-            baseResultInfo = new SuccessResult(userInfo);
+            UserInformation user = listUser.get(0);
+            user.setLastVisitTimestamp(System.currentTimeMillis());
+            user.setVisitTimes(user.getVisitTimes() + 1);
+            userRepository.save(user);
+            baseResultInfo = new SuccessResult(user);
             return baseResultInfo;
         }
 
     }
 
     @Override
-    public List<UserInfo> findUserInfoByNickNameAndAvatarUrl(String nickName, String avatarUrl) {
+    public List<UserInformation> findUserInfoByNickNameAndAvatarUrl(String nickName, String avatarUrl) {
         return userRepository.findByNickNameAndAvatarUrl(nickName, avatarUrl);
 
     }
 
     @Override
-    public Page<UserInfo> findAllUserInfo(Integer pageNumber, Integer pageSize, final Integer role, int sortDirection) {
+    public Page<UserInformation> findAllUserInfo(Integer pageNumber, Integer pageSize, final Integer role, int sortDirection) {
         Pageable pageable = null;
         if (sortDirection == Constant.ARTICLE_SORT_DIRECTION_DESC) {
             pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "id");
         } else {
             pageable = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "id");
         }
-        Page<UserInfo> bookPage = userRepository.findAll(new Specification<UserInfo>() {
+        Page<UserInformation> bookPage = userRepository.findAll(new Specification<UserInformation>() {
             @Override
-            public Predicate toPredicate(Root<UserInfo> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+            public Predicate toPredicate(Root<UserInformation> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
-                if(role!=UserRoleConfig.AllUser.getRoleCode()){
+                if (role != UserRoleConfig.AllUser.getRoleCode()) {
                     list.add(criteriaBuilder.equal(root.get("role").as(String.class), role));
                 }
                 Predicate[] p = new Predicate[list.size()];

@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  * Created by joybar on 2017/5/15.
  */
 @Entity
-public class UserInfo extends BaseData {
+public class UserInformation extends BaseData {
 
     private String userName = "";
     private String password = "";
@@ -21,19 +21,18 @@ public class UserInfo extends BaseData {
     private String avatarUrl = "";
     private String email = "";
     private String mobilePhoneNumber = "";
-    ;
     private String homeTown = "";
-    ;
 
     private String currentCity = "";
-    ;
     private String currentDetailAddress = "";
-    ;
 
-    public UserInfo() {
+    private long visitTimes = 0;
+    private long lastVisitTimestamp = 0;
+
+    public UserInformation() {
     }
 
-    public UserInfo(String nickName, String avatarUrl) {
+    public UserInformation(String nickName, String avatarUrl) {
         this.nickName = nickName;
         this.avatarUrl = avatarUrl;
     }
@@ -132,5 +131,21 @@ public class UserInfo extends BaseData {
 
     public void setCurrentDetailAddress(String currentDetailAddress) {
         this.currentDetailAddress = currentDetailAddress;
+    }
+
+    public long getVisitTimes() {
+        return visitTimes;
+    }
+
+    public void setVisitTimes(long visitTimes) {
+        this.visitTimes = visitTimes;
+    }
+
+    public long getLastVisitTimestamp() {
+        return lastVisitTimestamp;
+    }
+
+    public void setLastVisitTimestamp(long lastVisitTimestamp) {
+        this.lastVisitTimestamp = lastVisitTimestamp;
     }
 }

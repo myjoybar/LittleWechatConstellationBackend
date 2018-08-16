@@ -1,16 +1,12 @@
 package com.joy.controller;
 
-import com.joy.entity.ConstellationBroadcast;
-import com.joy.entity.UserInfo;
-import com.joy.entity.enumconfig.UserGenderConfig;
-import com.joy.entity.enumconfig.UserRoleConfig;
+import com.joy.entity.UserInformation;
 import com.joy.result.data.BaseResultInfo;
 import com.joy.result.data.SuccessResult;
 import com.joy.services.user.UserServiceImpl;
 import com.joy.utils.SOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -41,16 +37,15 @@ public class UserController {
         return userService.addUser(nickName, avatarUrl);
     }
 
-    @RequestMapping(value = "/findAllAllUser", method = {RequestMethod.GET})
-    public BaseResultInfo findAllUserInfo(ModelMap modelMap,
-                                                               @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
-                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                               @RequestParam(value = "role", defaultValue = "3") Integer role,
-                                                               @RequestParam(value = "sortDirection", defaultValue = "0") Integer sortDirection
+    @RequestMapping(value = "/findalluser", method = {RequestMethod.GET})
+    public BaseResultInfo findAllUserInfo(
+            @RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "role", defaultValue = "3") Integer role,
+            @RequestParam(value = "sortDirection", defaultValue = "0") Integer sortDirection
     ) {
 
-        Page<UserInfo> datas = userService.findAllUserInfo(pageNumber, pageSize, role, sortDirection);
-        modelMap.addAttribute("datas", datas);
+        Page<UserInformation> datas = userService.findAllUserInfo(pageNumber, pageSize, role, sortDirection);
         SuccessResult resultInfo = new SuccessResult(datas);
         return resultInfo;
     }
