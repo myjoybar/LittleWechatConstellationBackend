@@ -2,8 +2,8 @@ server:
    port: 443
    context-path: /constellation
    ssl:
-     key-store: classpath:214520819200829.pfx
-     key-store-password: 214520819200829
+     key-store: classpath:1849945_xiaobao.pfx
+     key-store-password: t2iPnliH
      keyStoreType: PKCS12
      SSLEnabled: true
      secure: true
